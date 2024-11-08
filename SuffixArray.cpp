@@ -1,10 +1,14 @@
 // @author: Le Phi Phat
 // @Test:
 // https://codeforces.com/edu/course/2/lesson/2/1/practice/contest/269100/problem/A
+// https://codeforces.com/edu/course/2/lesson/2/4/practice/contest/269119/problem/A
 struct SuffixArray {
   vector<int> dp;
   vector<int> id;
+  vector<int> lcp;
   int N, K;
+
+  // make sure character '$' less than all possible characters in s
   SuffixArray(string &s) {
     s += "$";
     N = s.size();
@@ -12,6 +16,7 @@ struct SuffixArray {
     dp.assign(N, 0);
     id.assign(N, 0);
     iota(id.begin(), id.end(), 0);
+    lcp.assign(N, 0);
     work(s);
   }
 
@@ -65,7 +70,21 @@ struct SuffixArray {
         }
       }
     }
+
+    // build lcp
+    int k = 0;
+    for (int i = 0; i < N - 1; i++) {
+      int pi = dp[i];
+      int j = id[pi - 1];
+      while (s[i + k] == s[j + k])
+        k++;
+      lcp[pi] = k;
+      k = max(0, k - 1);
+    }
   }
 
-  vector<int> get() { return id; }
+  // longest common prefix
+  vector<int> getLCP() { return lcp; }
+  // return suffix array sorted increase
+  vector<int> getId() { return id; }
 };
