@@ -2,6 +2,7 @@
 // @Test:
 // https://codeforces.com/edu/course/2/lesson/2/1/practice/contest/269100/problem/A
 // https://codeforces.com/edu/course/2/lesson/2/4/practice/contest/269119/problem/A
+// https://codeforces.com/edu/course/2/lesson/2/5/practice/contest/269656/problem/B
 struct SuffixArray {
   vector<int> dp;
   vector<int> id;
@@ -75,6 +76,9 @@ struct SuffixArray {
     int k = 0;
     for (int i = 0; i < N - 1; i++) {
       int pi = dp[i];
+      if (pi - 1 < 0)
+        continue;
+      // assert(pi - 1 >= 0);
       int j = id[pi - 1];
       while (s[i + k] == s[j + k])
         k++;
@@ -87,4 +91,36 @@ struct SuffixArray {
   vector<int> getLCP() { return lcp; }
   // return suffix array sorted increase
   vector<int> getId() { return id; }
+  // number of different string
+  // caution: O(N) !!!
+  long long numOfDiffString() {
+    long long tot = 1LL * (N * 1LL - 1 + 1) * (N - 1) / 2;
+    for (auto &x : lcp) {
+      tot -= x * 1LL;
+    }
+    return tot;
+  }
+
+  // s, t find longest common substring
+  // connect: S = s#t
+  // then find lcp, it’s enough to check only adjacent suffixes in sorted order.
+  // find max lcp such that $id[i] \le s.size()$ and $id[i + 1] > s.size()$
+  // $con = S, bor = s.size()$
+  string lcs(string &con, int bor) {
+    int st = 0, len = 0;
+    for (int i = 1; i < N; i++) {
+      if (lcp[i] > len && ((id[i] < bor && id[i - 1] > bor) ||
+                           (id[i] > bor && id[i - 1] < bor))) {
+        len = lcp[i];
+        st = id[i - 1];
+      }
+    }
+    return con.substr(st, len);
+  }
+
+  void db(string &s) {
+    for (int i = 0; i < N; i++) {
+      cout << id[i] << " " << s.substr(id[i]) << "\n";
+    }
+  }
 };
