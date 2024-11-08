@@ -101,11 +101,13 @@ struct SuffixArray {
     return tot;
   }
 
-  // s, t find longest common substring
-  // connect: S = s#t
-  // then find lcp, it’s enough to check only adjacent suffixes in sorted order.
-  // find max lcp such that $id[i] \le s.size()$ and $id[i + 1] > s.size()$
-  // $con = S, bor = s.size()$
+  // Given strings s and t, find the longest common substring.
+  // Concatenate: \( S = s\#t \)
+  // Then, compute the LCP array. It's sufficient to only check adjacent
+  // suffixes in sorted order. Find the maximum LCP value such that \(
+  // \text{id}[i] \leq \text{s.size()} \) and \( \text{id}[i + 1] >
+  // \text{s.size()} \). Let \( \text{con} = S \) and \( \text{bor} =
+  // \text{s.size()} \).
   string lcs(string &con, int bor) {
     int st = 0, len = 0;
     for (int i = 1; i < N; i++) {
