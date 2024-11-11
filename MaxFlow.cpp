@@ -49,7 +49,7 @@ template <class T> struct MaxFlow {
       return f;
     }
     auto r = f;
-    for (int &i = cur[u]; i < int(g[u].size()); ++i) {
+    for (int &i = cur[u]; i >= 0; --i) {
       const int j = g[u][i];
       auto [v, c] = e[j];
       if (c > 0 && h[v] == h[u] + 1) {
@@ -73,7 +73,9 @@ template <class T> struct MaxFlow {
   T flow(int s, int t) {
     T ans = 0;
     while (bfs(s, t)) {
-      cur.assign(n, 0);
+      for (int i = 0; i < n; i++) {
+        cur[i] = g[i].size() - 1;
+      }
       ans += dfs(s, t, numeric_limits<T>::max());
     }
     return ans;
@@ -104,5 +106,39 @@ template <class T> struct MaxFlow {
       a.push_back(x);
     }
     return a;
+  }
+
+  vector<vector<int>> trace(int s, int t) {
+    vector<int> path;
+    for (int i = 0; i < n; i++) {
+      cur[i] = g[i].size() - 1;
+    }
+    vector<vector<int>> paths;
+
+    function<bool(int, int)> find = [&](int u, int t) {
+      path.push_back(u);
+      if (u == t) {
+        return true;
+      }
+      for (int &i = cur[u]; i >= 0; i--) {
+        const int j = g[u][i];
+        auto [v, c] = e[j ^ 1];
+        auto [v1, c1] = e[j];
+        if (j % 2)
+          continue;
+        if (c > 0) {
+          find(v1, t);
+          i--;
+          return true;
+        }
+      }
+      return false;
+    };
+
+    while (find(s, t)) {
+      paths.push_back(path);
+      path.clear();
+    }
+    return paths;
   }
 };
