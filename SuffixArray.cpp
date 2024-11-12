@@ -3,6 +3,7 @@
 // https://codeforces.com/edu/course/2/lesson/2/1/practice/contest/269100/problem/A
 // https://codeforces.com/edu/course/2/lesson/2/4/practice/contest/269119/problem/A
 // https://codeforces.com/edu/course/2/lesson/2/5/practice/contest/269656/problem/B
+// https://codeforces.com/edu/course/2/lesson/2/5/practice/contest/269656/problem/D
 struct SuffixArray {
   vector<int> dp;
   vector<int> id;
@@ -83,7 +84,7 @@ struct SuffixArray {
       while (s[i + k] == s[j + k])
         k++;
       lcp[pi] = k;
-      k = max(0, k - 1);
+      k = max(0LL, k - 1);
     }
   }
 
@@ -120,9 +121,35 @@ struct SuffixArray {
     return con.substr(st, len);
   }
 
+  // border t of s is string that prefix and suffix of s at the same time
+  // calc number of border off all string
+  // caution: uncheck long long
+  i64 cntBorder() {
+    deque<int> de;
+    vector<i64> dp(lcp.size());
+    dp[0] = 0;
+    for (int i = 1; i < lcp.size(); i++) {
+      while (!de.empty() && lcp[i] <= lcp[de.back()]) {
+        de.pop_back();
+      }
+
+      int lst = (de.empty() ? 1 : de.back());
+      debug(i, lst, dp[lst]);
+      dp[i] = dp[lst] + (i - lst) * lcp[i];
+      de.push_back(i);
+      debug(dp);
+    }
+    int n = N - 1;
+    i64 tot = (n + 1) * n / 2;
+    for (int i = 1; i < (int)lcp.size(); i++) {
+      tot += dp[i];
+    }
+    return 0;
+  }
+
   void db(string &s) {
     for (int i = 0; i < N; i++) {
-      cout << id[i] << " " << s.substr(id[i]) << "\n";
+      cout << lcp[i] << " " << id[i] << " " << s.substr(id[i]) << "\n";
     }
   }
 };
