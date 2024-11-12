@@ -3,7 +3,7 @@ template <class T> struct MaxFlow {
   struct _Edge {
     int to;
     T cap;
-    _Edge(int to, T cap) : to(to), cap(cap) {}
+    _Edge(int to_, T cap_) : to(to_), cap(cap_) {}
   };
 
   int n;
@@ -12,10 +12,10 @@ template <class T> struct MaxFlow {
   vector<int> cur, h;
 
   MaxFlow() {}
-  MaxFlow(int n) { init(n); }
+  MaxFlow(int n_) { init(n_); }
 
-  void init(int n) {
-    this->n = n;
+  void init(int n_) {
+    this->n = n_;
     e.clear();
     g.assign(n, {});
     cur.resize(n);
@@ -108,7 +108,7 @@ template <class T> struct MaxFlow {
     return a;
   }
 
-  vector<vector<int>> trace(int s, int t) {
+  vector<vector<int>> trace(int s_, int t_) {
     vector<int> path;
     for (int i = 0; i < n; i++) {
       cur[i] = g[i].size() - 1;
@@ -135,7 +135,7 @@ template <class T> struct MaxFlow {
       return false;
     };
 
-    while (find(s, t)) {
+    while (find(s_, t_)) {
       paths.push_back(path);
       path.clear();
     }
