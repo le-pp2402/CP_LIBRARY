@@ -1,21 +1,24 @@
 [tree]
-Wavelet.cpp	Wavelet
+tree/Wavelet.cpp	Wavelet
 [string]
-StringHashing.cpp	StringHashing
-aho-corasick.cpp	aho-corasick
-SuffixArray.cpp	SuffixArray
-Booth.cpp	Booth
+string/StringHashing.cpp	StringHashing
+string/KMP.cpp	KMP
+string/aho-corasick.cpp	aho-corasick
+string/ZFunction.cpp	ZFunction
+string/SuffixArray.cpp	SuffixArray
+string/Booth.cpp	Booth
 [math]
-fft.cpp	fft
-MillerRabin.cpp	MillerRabin
+math/fft.cpp	fft
+math/MillerRabin.cpp	MillerRabin
 [other]
-um_hash.cpp	um_hash
-MinMaxDeque.cpp	MinMaxDeque
-StressTest	StressTest
-Debug.cpp	Debug
-Generator.cpp	Generator
+other/um_hash.cpp	um_hash
+other/MinMaxDeque.cpp	MinMaxDeque
+other/StressTest	StressTest
+other/MedianSolver.cpp	MedianSolver
+other/Debug.cpp	Debug
+other/Generator.cpp	Generator
 [graph]
-TwoSat.cpp	TwoSat
-Tarjan.cpp	Tarjan
-MaxFlow.cpp	MaxFlow
-MaxAssignment.cpp	MaxAssignment
+graph/TwoSat.cpp	TwoSat
+graph/Tarjan.cpp	Tarjan
+graph/MaxFlow.cpp	MaxFlow
+graph/MaxAssignment.cpp	MaxAssignment

@@ -8,5 +8,5 @@ with open('contents.txt', 'w') as f:
         if section not in ignores and os.path.isdir(section):
             f.write('[{}]\n'.format(section))
             for sub in os.listdir(os.path.join('./', section)):
-                f.write(sub + '\t' + sub.split('.')[0] + '\n')
+                f.write(os.path.join(section, sub) + '\t' + sub.split('.')[0] + '\n')
     f.close()
