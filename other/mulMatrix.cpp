@@ -36,10 +36,7 @@ struct Matrix {
 
     Matrix operator * (const Matrix &b) {
         Matrix a = *this;
-
-        // Kiểm tra điều kiện nhân ma trận
         assert(a.col() == b.row());
-
         Matrix c(a.row(), b.col());
         for (int i = 0; i < a.row(); ++i)
             for (int j = 0; j < b.col(); ++j)
@@ -49,8 +46,6 @@ struct Matrix {
     }
 
     Matrix pow(long long exp) {
-
-        // Kiểm tra điều kiện lũy thừa ma trận (là ma trận vuông)
         assert(row() == col());
 
         Matrix base = *this, ans = identity(row());
