@@ -1,27 +1,16 @@
-#include <algorithm>
 #include <bits/stdc++.h>
-#include <random>
 using namespace std;
-
 #define int long long
 #define accuracy chrono::steady_clock::now().time_since_epoch().count()
-#define rep(i, a, n) for (int i = a; i <= n; ++i)
-
 const int N = 1e6 + 4;
-
 int32_t permutation[N];
-
 mt19937 rng(accuracy);
-
 int rand(int l, int r) {
   uniform_int_distribution<int> ludo(l, r);
   return ludo(rng);
 }
-
 const int inf = 1LL << 31;
-
 using pii = pair<int, int>;
-
 namespace generator {
 string gen_string(int len = 0, bool upperCase = false, int l = 1, int r = 26) {
   assert(len >= 0 && len <= 5e6);
@@ -86,23 +75,7 @@ vector<pair<int, int>> simple_graph(int n = 0, int m = 0) {
 
 using namespace generator;
 
-template <typename T = int>
-ostream &operator<<(ostream &other, const vector<T> &v) {
-  for (const T &x : v)
-    other << x << ' ';
-  other << '\n';
-  return other;
-}
-
-ostream &operator<<(ostream &other, const vector<pair<int, int>> &v) {
-  for (const auto &x : v)
-    other << x.first << ' ' << x.second << '\n';
-  return other;
-}
-
-void generate_test() {}
-
 signed main() {
   srand(accuracy);
-  generate_test();
+  // write gen test here
 };
