@@ -1,4 +1,6 @@
-
+// given n, a[n]
+// C = (u1 v u2) ^ (u3 v u4) ^ (u5 v u6) .... (u_(m - 1), u_m)
+// u[i] = a[i] or !a[I]
 struct TwoSat {
   int n;
   vector<vector<int>> e;
