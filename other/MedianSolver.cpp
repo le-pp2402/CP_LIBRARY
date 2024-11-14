@@ -44,11 +44,15 @@ public:
     }
   }
 
-  int getMedian() {
+   int getMedian() {
     assert(left.size() != 0);
     balance();
+    if (right.size() > left.size()) {
+      return right.begin()->first;
+    }
     return left.rbegin()->first;
   }
+
 
   void insert(const pair<int, int> value) {
     left.insert(value);
