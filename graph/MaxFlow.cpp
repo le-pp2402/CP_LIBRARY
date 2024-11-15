@@ -13,10 +13,8 @@ template <class T> struct MaxFlow {
   MaxFlow(int n_) { init(n_); }
   void init(int n_) {
     this->n = n_;
-    e.clear();
-    g.assign(n, {});
-    cur.resize(n);
-    h.resize(n);
+    e.clear(); g.assign(n, {});
+    cur.resize(n); h.resize(n);
   }
   bool bfs(int s, int t) {
     h.assign(n, -1);
@@ -79,10 +77,8 @@ template <class T> struct MaxFlow {
     return c;
   }
   struct Edge {
-    int from;
-    int to;
-    T cap;
-    T flow;
+    int from; int to;
+    T cap; T flow;
   };
   vector<Edge> edges() {
     vector<Edge> a;

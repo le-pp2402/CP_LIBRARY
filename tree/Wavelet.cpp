@@ -15,8 +15,7 @@ public:
       return;
     int mid = (lo + hi) >> 1;
     auto f = [mid](int x) -> bool { return x <= mid; };
-    b.reserve(to - from + 1);
-    b.emplace_back(0);
+    b.reserve(to - from + 1); b.emplace_back(0);
     for (auto it = from; it != to; ++it) {
       b.emplace_back(b.back() + f(*it));
     }
