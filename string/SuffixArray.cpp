@@ -1,9 +1,4 @@
 // @author: Le Phi Phat
-// @Test:
-// https://codeforces.com/edu/course/2/lesson/2/1/practice/contest/269100/problem/A
-// https://codeforces.com/edu/course/2/lesson/2/4/practice/contest/269119/problem/A
-// https://codeforces.com/edu/course/2/lesson/2/5/practice/contest/269656/problem/B
-// https://codeforces.com/edu/course/2/lesson/2/5/practice/contest/269656/problem/D
 struct SuffixArray {
   vector<int> dp;
   vector<int> id;
