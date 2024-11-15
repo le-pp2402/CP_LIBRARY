@@ -1,4 +1,3 @@
-
 // query 0, k, u, v G[i] be the graph, which í make by add edge (u, v) to G[k[i]]
 // query 1, k, u, v if u, v in G[k[i]] are connected print 1 otherwise print 0
 const int N = 2e5 + 9;
@@ -47,9 +46,7 @@ struct PersistentArray { // 0-indexed
   }
   node* upd(node* pre, int i, T x, int l, int r) {
     node* cur = new node();
-    if (l == r){
-      cur -> x = x;
-    }
+    if (l == r) cur -> x = x;
     else {
       if (i <= ((l + r) >> 1)) {
         cur -> l = upd(pre -> l, i, x, l, (l + r) >> 1);
@@ -92,36 +89,29 @@ struct PersistentDSU {
     c[cur] = c[r];
     if ((u = find(r, u)) == (v = find(r, v))) {
       par.upd(r, 0, 0);
-      sz.upd(r, 0, 0);
-      // assert(cur == par.root.size() - 1);
+      sz.upd(r, 0, 0); // assert(cur == par.root.size() - 1);
       return cur; 
     }
     else c[cur]--;
     if (rnd() % 2) swap(u, v);
     int x = sz.get_val(r, v) + sz.get_val(r, u);
     par.upd(r, u, v); 
-    sz.upd(r, v, x);
-    // assert(cur == par.root.size() - 1);
+    sz.upd(r, v, x); // assert(cur == par.root.size() - 1);
     return cur;
   }
 };
 int r[N];
 int32_t main() {
-  ios_base::sync_with_stdio(0);
-  cin.tie(0);
   int n, q; cin >> n >> q;
   PersistentDSU d(n, q + 1);
   for (int i = 1; i <= q; i++) {
     int ty, id, u, v; cin >> ty >> id >> u >> v;
     ++id, ++u; ++v;
-    if (ty == 0) {
-      r[i] = d.merge(r[id], u, v);
-    }
+    if (ty == 0) r[i] = d.merge(r[id], u, v);
     else {
       r[i] = r[i - 1];
       cout << d.same(r[id], u, v) << '\n';
     }
   }
   return 0;
-}
-// https://judge.yosupo.jp/problem/persistent_unionfind
+} // https://judge.yosupo.jp/problem/persistent_unionfind
