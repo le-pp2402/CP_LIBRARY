@@ -42,13 +42,8 @@ vector<T> mul(const vector<T> &a, const vector<T> &b, const vector<T>& c) {
     ret.resize(min((int) ret.size(), n)); return ret;
 }
 // Find k-th element in linear recurrence: O(d^2 * logn)
-// Need faster code? See https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence
-//   (but usually not needed since bottleneck is BerlekampMassey
-//
-// Params:
-// - c: as returned by berlekampMassey
-// - s: s0, s1, ..., s(N-1)
-// Returns: s(k)
+// Params: - c: as returned by berlekampMassey
+// - s: s0, s1, ..., s(N-1) Returns: s(k)
 template<typename T>
 T solve(const vector<T> &c, const vector<T> &s, long long k) {
     int n = (int) c.size(); assert(c.size() <= s.size());
