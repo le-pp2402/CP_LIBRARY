@@ -1,6 +1,5 @@
 class wavetree {
   using wt = wavetree;
-
 private:
   int lo, hi;
   wt *l, *r;
@@ -25,7 +24,6 @@ public:
     l = new wavetree(from, pivot, lo, mid);
     r = new wavetree(pivot, to, mid + 1, hi);
   }
-
   int kth(int l, int r, int k) {
     if (l > r)
       return 0;
@@ -36,7 +34,6 @@ public:
       return this->l->kth(lt + 1, rt, k);
     return this->r->kth(l - lt, r - rt, k - inLeft);
   }
-
   int LTE(int l, int r, int k) {
     if (l > r || l > k)
       return 0;
@@ -46,7 +43,6 @@ public:
     //     if (lo > k) return r - l + 1;
     return this->l->LTE(lt + 1, rt, k) + this->r->LTE(l - lt, r - rt, k);
   }
-
   int count(int l, int r, int k) {
     if (l > r || lo > k || hi < k)
       return 0;

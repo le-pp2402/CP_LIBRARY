@@ -5,15 +5,12 @@ template <class T> struct MaxFlow {
     T cap;
     _Edge(int to_, T cap_) : to(to_), cap(cap_) {}
   };
-
   int n;
   vector<_Edge> e;
   vector<vector<int>> g;
   vector<int> cur, h;
-
   MaxFlow() {}
   MaxFlow(int n_) { init(n_); }
-
   void init(int n_) {
     this->n = n_;
     e.clear();
@@ -21,15 +18,13 @@ template <class T> struct MaxFlow {
     cur.resize(n);
     h.resize(n);
   }
-
   bool bfs(int s, int t) {
     h.assign(n, -1);
     queue<int> que;
     h[s] = 0;
     que.push(s);
     while (!que.empty()) {
-      const int u = que.front();
-      que.pop();
+      const int u = que.front(); que.pop();
       for (int i : g[u]) {
         auto [v, c] = e[i];
         if (c > 0 && h[v] == -1) {
@@ -43,7 +38,6 @@ template <class T> struct MaxFlow {
     }
     return false;
   }
-
   T dfs(int u, int t, T f) {
     if (u == t) {
       return f;
@@ -54,8 +48,7 @@ template <class T> struct MaxFlow {
       auto [v, c] = e[j];
       if (c > 0 && h[v] == h[u] + 1) {
         auto a = dfs(v, t, min(r, c));
-        e[j].cap -= a;
-        e[j ^ 1].cap += a;
+        e[j].cap -= a; e[j ^ 1].cap += a;
         r -= a;
         if (r == 0) {
           return f;
@@ -65,10 +58,8 @@ template <class T> struct MaxFlow {
     return f - r;
   }
   void addEdge(int u, int v, T c) {
-    g[u].push_back(e.size());
-    e.emplace_back(v, c);
-    g[v].push_back(e.size());
-    e.emplace_back(u, 0);
+    g[u].push_back(e.size()); e.emplace_back(v, c);
+    g[v].push_back(e.size()); e.emplace_back(u, 0);
   }
   T flow(int s, int t) {
     T ans = 0;
@@ -80,7 +71,6 @@ template <class T> struct MaxFlow {
     }
     return ans;
   }
-
   vector<bool> minCut() {
     vector<bool> c(n);
     for (int i = 0; i < n; i++) {
@@ -88,7 +78,6 @@ template <class T> struct MaxFlow {
     }
     return c;
   }
-
   struct Edge {
     int from;
     int to;
@@ -107,14 +96,12 @@ template <class T> struct MaxFlow {
     }
     return a;
   }
-
   vector<vector<int>> trace(int s_, int t_) {
     vector<int> path;
     for (int i = 0; i < n; i++) {
       cur[i] = g[i].size() - 1;
     }
     vector<vector<int>> paths;
-
     function<bool(int, int)> find = [&](int u, int t) {
       path.push_back(u);
       if (u == t) {
@@ -122,8 +109,7 @@ template <class T> struct MaxFlow {
       }
       for (int &i = cur[u]; i >= 0; i--) {
         const int j = g[u][i];
-        auto [v, c] = e[j ^ 1];
-        auto [v1, c1] = e[j];
+        auto [v, c] = e[j ^ 1]; auto [v1, c1] = e[j];
         if (j % 2)
           continue;
         if (c > 0) {
@@ -134,7 +120,6 @@ template <class T> struct MaxFlow {
       }
       return false;
     };
-
     while (find(s_, t_)) {
       paths.push_back(path);
       path.clear();

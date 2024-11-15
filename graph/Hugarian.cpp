@@ -3,35 +3,26 @@ public:
   int n;
   int m;
   vector<vector<T>> a;
-  vector<T> u;
-  vector<T> v;
-  vector<int> pa;
-  vector<int> pb;
-  vector<int> way;
-  vector<T> minv;
+  vector<T> u, v, minv;
+  vector<int> pa, pb, way;
   vector<bool> used;
   T inf;
-
   hungarian(int _n, int _m, const std::vector<std::vector<T>> &_a)
       : n(_n), m(_m) {
     assert(n <= m);
     assert(int(_a.size()) == _n);
     a = _a;
-    u = vector<T>(n + 1);
-    v = vector<T>(m + 1);
-    pa = vector<int>(n + 1, -1);
-    pb = vector<int>(m + 1, -1);
+    u = vector<T>(n + 1); v = vector<T>(m + 1);
+    pa = vector<int>(n + 1, -1); pb = vector<int>(m + 1, -1);
     way = vector<int>(m, -1);
     minv = vector<T>(m);
     used = vector<bool>(m + 1);
     inf = numeric_limits<T>::max();
   }
-
   inline void add_row(int i) {
     fill(minv.begin(), minv.end(), inf);
     fill(used.begin(), used.end(), false);
-    pb[m] = i;
-    pa[i] = m;
+    pb[m] = i; pa[i] = m;
     int j0 = m;
     do {
       used[j0] = true;
@@ -68,9 +59,7 @@ public:
       j0 = j1;
     } while (j0 != m);
   }
-
   inline T current_score() { return -v[m]; }
-
   inline T solve() {
     for (int i = 0; i < n; i++) {
       add_row(i);

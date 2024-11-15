@@ -4,10 +4,8 @@ struct GeneralMatching {
         aux(_n, -1) {}
 
   void add_edge(int u, int v) {
-    g[u].push_back(v);
-    g[v].push_back(u);
+    g[u].push_back(v); g[v].push_back(u);
   }
-
   int get_match() {
     for (int i = 0; i < n; i++) {
       if (match[i] == -1)
@@ -20,10 +18,8 @@ struct GeneralMatching {
     }
     return res / 2;
   }
-
   int n;
   vector<int> match;
-
 private:
   int lca(int x, int y) {
     for (timer++;; swap(x, y)) {
@@ -35,7 +31,6 @@ private:
       x = (match[x] == -1 ? -1 : orig[parent[match[x]]]);
     }
   }
-
   void blossom(int v, int w, int a) {
     while (orig[v] != a) {
       parent[v] = w;
@@ -48,12 +43,10 @@ private:
       v = parent[w];
     }
   }
-
   void augment(int v) {
     while (v != -1) {
       int pv = parent[v], nv = match[pv];
-      match[v] = pv;
-      match[pv] = v;
+      match[v] = pv; match[pv] = v;
       v = nv;
     }
   }
@@ -68,8 +61,7 @@ private:
       int v = q[i];
       for (auto x : g[v]) {
         if (label[x] == -1) {
-          label[x] = 1;
-          parent[x] = v;
+          label[x] = 1; parent[x] = v;
           if (match[x] == -1) {
             augment(x);
             return 1;
@@ -78,14 +70,12 @@ private:
           q.push_back(match[x]);
         } else if (label[x] == 0 && orig[v] != orig[x]) {
           int a = lca(orig[v], orig[x]);
-          blossom(x, v, a);
-          blossom(v, x, a);
+          blossom(x, v, a); blossom(v, x, a);
         }
       }
     }
     return 0;
   }
-
 private:
   vector<vector<int>> g;
   int timer;
