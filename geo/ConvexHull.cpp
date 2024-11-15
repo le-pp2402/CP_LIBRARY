@@ -1,8 +1,8 @@
-// A -> B -> C di theo thu tu nguoc chieu kim dong ho
+// A -> B -> C nguoc chieu kim dong ho
 bool ccw(const Point &A, const Point &B, const Point &C) {
     return 1LL * (B.x - A.x) * (C.y - A.y) - 1LL * (C.x - A.x) * (B.y - A.y) > 0;
 }
-// tra ve bao loi voi thu tu cac diem duoc liet ke theo chieu kim dong ho
+// bao loi thu tu cac diem theo chieu kim dong ho
 vector<Point> convexHull(vector<Point> p, int n) {
     sort(p.begin(), p.end(), [](const Point &A, const Point &B) {
         if (A.x != B.x) return A.x < B.x;
