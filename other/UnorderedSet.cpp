@@ -1,5 +1,3 @@
-// https://codeforces.com/blog/entry/60737
-// https://codeforces.com/blog/entry/62393
 #include <ext/pb_ds/assoc_container.hpp>
 const int RANDOM = chrono::high_resolution_clock::now().time_since_epoch().count();
 struct chash { int operator()(int x) const { return x ^ RANDOM; } };
@@ -11,7 +9,6 @@ gp_hash_table<pair<int, int>, int, chash> ex;
 gp_hash_table<int, int> Ox, Oy;
 struct custom_hash {
     static uint64_t splitmix64(uint64_t x) {
-        // http://xorshift.di.unimi.it/splitmix64.c
         x += 0x9e3779b97f4a7c15;
         x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
         x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
