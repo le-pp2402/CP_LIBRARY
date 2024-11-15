@@ -12,7 +12,6 @@ void insertVector(int mask) {
     if (mask != 0) { basis.push_back(mask); }
 }
 
-
 struct Basis {
     int a[20] {};
     int t[20] {};
