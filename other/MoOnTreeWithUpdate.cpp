@@ -19,17 +19,14 @@ struct TreeMoAlgorithmWithUpdates {
       : n(_g.size()), g(_g), parent(n), depth(n), sz(n), dfs_number(0), nxt(n),
         in(n), out(n), flattened(n * 2) {
     assert(0 <= root && root < n);
-
     // init parent, depth, sz
     // also move most heavy child of u to g[u][0]
     depth[root] = 0;
     dfs_sz(root, -1);
-
     // init nxt, in, out
     nxt[root] = root;
     dfs_hld(root);
   }
-
   vector<ResultT> solve(const vector<QueryT> &orig_queries, Add add, Rem rem,
                         Update update, Get get) {
     // Separate update and get queries
@@ -43,9 +40,7 @@ struct TreeMoAlgorithmWithUpdates {
         if (in[u] > in[v])
           swap(u, v);
         assert(in[u] <= in[v]);
-
         int p = lca(u, v);
-
         gets.push_back(TreeGet{
             p,
             p == u ? in[u] : out[u],
@@ -62,7 +57,6 @@ struct TreeMoAlgorithmWithUpdates {
         });
       }
     }
-
     // Sort queries
     int S = max<int>(1, cbrtl(n + 0.5));
     S = S * S;
@@ -72,15 +66,12 @@ struct TreeMoAlgorithmWithUpdates {
                 int l2 = q2.l / S;
                 if (l1 != l2)
                   return l1 < l2;
-
                 int r1 = q1.r / S;
                 int r2 = q2.r / S;
                 if (r1 != r2)
                   return (l1 % 2 == 0) ? r1 < r2 : r1 > r2;
-
                 return (r1 % 2 == 0) ? q1.id < q2.id : q1.id > q2.id;
               });
-
     // Process queries
     vector<ResultT> res(orig_queries.size());
     int cur_l = -1, cur_r = -1, cur_update = -1;
@@ -100,7 +91,6 @@ struct TreeMoAlgorithmWithUpdates {
         while (cur_l < query.l)
           rem(flattened[cur_l++]);
       }
-
       // process updates
       // should we update more?
       while (cur_update + 1 < (int)updates.size() &&
@@ -115,29 +105,20 @@ struct TreeMoAlgorithmWithUpdates {
                updates[cur_update].old_val, cur_l, cur_r);
         --cur_update;
       }
-
       if (query.p != query.u)
         add(query.p);
-
       res[query.id] = get(orig_queries[query.id]);
-
       if (query.p != query.u)
         rem(query.p);
     }
     return res;
   }
-
   struct TreeGet {
-    int p;
-    int l, r, u;
-    int id;
+    int p; int l, r, u; int id;
   };
   struct TreeUpdate {
-    int u;
-    int new_val, old_val;
-    int id;
+    int u; int new_val, old_val; int id;
   };
-
   int lca(int u, int v) const {
     assert(0 <= u && u < n);
     assert(0 <= v && v < n);
@@ -149,7 +130,6 @@ struct TreeMoAlgorithmWithUpdates {
       v = parent[nxt[v]];
     }
   }
-
   int n;
   vector<vector<int>> g;
   vector<int> parent;
@@ -157,10 +137,8 @@ struct TreeMoAlgorithmWithUpdates {
   vector<int> sz;
   int dfs_number;
   vector<int> nxt;
-
   vector<int> in, out;
   vector<int> flattened;
-
   void dfs_sz(int u, int fu) {
     parent[u] = fu;
     sz[u] = 1;
@@ -168,17 +146,14 @@ struct TreeMoAlgorithmWithUpdates {
     auto it = std::find(g[u].begin(), g[u].end(), fu);
     if (it != g[u].end())
       g[u].erase(it);
-
     for (int &v : g[u]) {
       depth[v] = depth[u] + 1;
       dfs_sz(v, u);
-
       sz[u] += sz[v];
       if (sz[v] > sz[g[u][0]])
         swap(v, g[u][0]);
     }
   }
-
   void dfs_hld(int u) {
     flattened[in[u] = dfs_number++] = u;
     for (int v : g[u]) {
@@ -189,10 +164,8 @@ struct TreeMoAlgorithmWithUpdates {
   }
 };
 // }}}
-
 // Example query type
 enum QueryType { GET = 0, UPDATE = 1 };
-
 struct Query {
   int u, v;             // For get: path u -> v
   int new_val, old_val; // For update: set a[u] = val (old value = old_val)

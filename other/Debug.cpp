@@ -11,7 +11,6 @@ void __print(char x) { cout << '\'' << x << '\''; }
 void __print(const char *x) { cout << '\"' << x << '\"'; }
 void __print(const string &x) { cout << '\"' << x << '\"'; }
 void __print(bool x) { cout << (x ? "true" : "false"); }
-
 template <typename T, typename V> void __print(const pair<T, V> &x) {
   cout << '{';
   __print(x.first);
@@ -33,7 +32,6 @@ template <typename T, typename... V> void _print(T t, V... v) {
     cout << ", ";
   _print(v...);
 }
-
 #define debug(x...)                                                            \
   cout << #x << " = [";                                                        \
   _print(x)

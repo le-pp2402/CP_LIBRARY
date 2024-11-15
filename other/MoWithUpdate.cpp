@@ -7,14 +7,12 @@
 //
 // Mo algorithm with updates {{{
 enum QueryType { GET = 0, UPDATE = 1 };
-
 struct Query {
   int l, r;            // For get
   int u, val, old_val; // For update
   int id;
   QueryType typ;
 };
-
 template <typename Add, typename Rem, typename Update, typename Get>
 void mo_with_updates(int n, const vector<Query> &queries, Add add, Rem rem,
                      Update update, Get get) {
@@ -26,17 +24,14 @@ void mo_with_updates(int n, const vector<Query> &queries, Add add, Rem rem,
     else
       gets.push_back(query);
   }
-
   // Sort queries
   int S = std::max<int>(1, cbrtl(n + 0.5));
   S = S * S;
-
   sort(gets.begin(), gets.end(), [&](const Query &q1, const Query &q2) {
     int l1 = q1.l / S;
     int l2 = q2.l / S;
     if (l1 != l2)
       return l1 < l2;
-
     int r1 = q1.r / S;
     int r2 = q2.r / S;
     if (r1 != r2)
@@ -44,7 +39,6 @@ void mo_with_updates(int n, const vector<Query> &queries, Add add, Rem rem,
 
     return (r1 % 2 == 0) ? q1.id < q2.id : q1.id > q2.id;
   });
-
   // Process queries
   int cur_l = -1, cur_r = -1, cur_update = -1;
   for (const auto &query : gets) {
@@ -64,7 +58,6 @@ void mo_with_updates(int n, const vector<Query> &queries, Add add, Rem rem,
       while (cur_l < query.l)
         rem(cur_l++);
     }
-
     // process updates
     // should we update more?
     while (cur_update + 1 < (int)updates.size() &&
@@ -77,7 +70,6 @@ void mo_with_updates(int n, const vector<Query> &queries, Add add, Rem rem,
       update(updates[cur_update].u, updates[cur_update].old_val, cur_l, cur_r);
       --cur_update;
     }
-
     get(query);
   }
 }

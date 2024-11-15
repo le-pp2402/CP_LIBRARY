@@ -7,9 +7,7 @@ public:
   int size() { return st.size(); }
   void push(T x) {
     T mn = x;
-    if (!empty()) {
-      mini(mn, getMin());
-    }
+    if (!empty()) mini(mn, getMin());
     st.push(make_pair(x, mn));
   }
   void pop() { st.pop(); }
@@ -38,9 +36,7 @@ public:
       stackF.push(stackTmp.top());
       stackTmp.pop();
     }
-    if (flag) {
-      stackF.swap(stackB);
-    }
+    if (flag) stackF.swap(stackB);
   }
   bool empty() { return (stackF.empty() && stackB.empty()); }
   int size() { return (stackB.size() + stackF.size()); }

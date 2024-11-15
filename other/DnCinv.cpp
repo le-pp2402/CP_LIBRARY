@@ -1,8 +1,4 @@
-//(i, x, y)
-//(j, u, v)
-// i < j
-// x <= u
-// v <= y
+//(i, x, y), (j, u, v), i < j, x <= u, v <= y
 fenwick<int64_t> fw(w + 1);
 auto dq = [&](auto &sf, int l, int r) -> void {
   if (l + 1 == r)

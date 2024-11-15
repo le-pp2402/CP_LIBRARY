@@ -72,9 +72,7 @@ vector<pair<int, int>> simple_graph(int n = 0, int m = 0) {
   return res;
 }
 } // namespace generator
-
 using namespace generator;
-
 signed main() {
   srand(accuracy);
   // write gen test here
