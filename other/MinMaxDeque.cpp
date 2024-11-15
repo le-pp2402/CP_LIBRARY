@@ -1,6 +1,4 @@
 // author: Le Phi Phat
-// Test: https://oj.uz/submission/1089532
-// https://codeforces.com/blog/entry/122003
 template <class T> class minStack {
 public:
   stack<pair<T, T>> st;
