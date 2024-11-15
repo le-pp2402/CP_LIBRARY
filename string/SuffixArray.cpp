@@ -141,7 +141,31 @@ struct SuffixArray {
     }
     return 0;
   }
-
+// spt: rmq min, .... 
+    int calculatePeriodicSubstring(const vector<vector<int>> &spt, const vector<int> &cls, const vector<vector<int>> &sptReversed, const vector<int> &clsReversed) {
+      int res = 1;  // simply repeat the whole string once
+      const int n = cls.size() - 1;
+      for (int l = 1; l < n; l++) {
+          for (int x = 0; l * (x + 1) < n; x++) {
+              int i = cls[l * x], j = cls[l * (x + 1)];
+              int pow = 0;
+              while ((1 << pow) <= (abs(j - i))) {
+                  pow++;
+              }
+              pow--;
+              int rightExtension = min(spt[pow][min(i, j)], spt[pow][max(i, j) - (1 << pow)]);
+              int ii = clsReversed[n - 1 - l * x], jj = clsReversed[n - 1 - l * (x + 1)];
+              pow = 0;
+              while ((1 << pow) <= (abs(jj - ii))) {
+                  pow++;
+              }
+              pow--;
+              int leftExtension = min(sptReversed[pow][min(ii, jj)], sptReversed[pow][max(ii, jj) - (1 << pow)]);
+              res = max(res, (leftExtension + l + rightExtension - 1) / l);
+          }
+      }
+      return res;
+  }
   void db(string &s) {
     for (int i = 0; i < N; i++) {
       cout << lcp[i] << " " << id[i] << " " << s.substr(id[i]) << "\n";
