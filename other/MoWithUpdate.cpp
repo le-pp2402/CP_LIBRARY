@@ -4,7 +4,6 @@
 //   [cur_l, cur_r] = current segment
 //   we need to handle the case where we update an index that is inside
 //   [cur_l, cur_r]
-//
 // Mo algorithm with updates {{{
 enum QueryType { GET = 0, UPDATE = 1 };
 struct Query {
@@ -28,12 +27,10 @@ void mo_with_updates(int n, const vector<Query> &queries, Add add, Rem rem,
   int S = std::max<int>(1, cbrtl(n + 0.5));
   S = S * S;
   sort(gets.begin(), gets.end(), [&](const Query &q1, const Query &q2) {
-    int l1 = q1.l / S;
-    int l2 = q2.l / S;
+    int l1 = q1.l / S, l2 = q2.l / S;
     if (l1 != l2)
       return l1 < l2;
-    int r1 = q1.r / S;
-    int r2 = q2.r / S;
+    int r1 = q1.r / S, r2 = q2.r / S;
     if (r1 != r2)
       return (l1 % 2 == 0) ? r1 < r2 : r1 > r2;
 
@@ -46,8 +43,7 @@ void mo_with_updates(int n, const vector<Query> &queries, Add add, Rem rem,
     if (cur_l < 0) {
       for (int i = query.l; i <= query.r; ++i)
         add(i);
-      cur_l = query.l;
-      cur_r = query.r;
+      cur_l = query.l; cur_r = query.r;
     } else {
       while (cur_l > query.l)
         add(--cur_l);
@@ -58,14 +54,11 @@ void mo_with_updates(int n, const vector<Query> &queries, Add add, Rem rem,
       while (cur_l < query.l)
         rem(cur_l++);
     }
-    // process updates
-    // should we update more?
     while (cur_update + 1 < (int)updates.size() &&
            updates[cur_update + 1].id < query.id) {
       ++cur_update;
       update(updates[cur_update].u, updates[cur_update].val, cur_l, cur_r);
     }
-    // should we update less?
     while (cur_update >= 0 && updates[cur_update].id > query.id) {
       update(updates[cur_update].u, updates[cur_update].old_val, cur_l, cur_r);
       --cur_update;

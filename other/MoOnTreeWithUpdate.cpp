@@ -58,16 +58,18 @@ struct TreeMoAlgorithmWithUpdates {
       }
     }
     // Sort queries
-    int S = max<int>(1, cbrtl(n + 0.5));
-    S = S * S;
+    int S = max<int>(1, cbrtl(n + 0.5)); S = S * S;
     std::sort(gets.begin(), gets.end(),
               [&](const TreeGet &q1, const TreeGet &q2) {
-                int l1 = q1.l / S;
-                int l2 = q2.l / S;
+                int l1 = q1.l / S, l2 = q2.l / S;
                 if (l1 != l2)
                   return l1 < l2;
+<<<<<<< HEAD
                 int r1 = q1.r / S;
                 int r2 = q2.r / S;
+=======
+                int r1 = q1.r / S, r2 = q2.r / S;
+>>>>>>> f20406e (Done Mo)
                 if (r1 != r2)
                   return (l1 % 2 == 0) ? r1 < r2 : r1 > r2;
                 return (r1 % 2 == 0) ? q1.id < q2.id : q1.id > q2.id;
@@ -91,15 +93,17 @@ struct TreeMoAlgorithmWithUpdates {
         while (cur_l < query.l)
           rem(flattened[cur_l++]);
       }
+<<<<<<< HEAD
       // process updates
       // should we update more?
+=======
+>>>>>>> f20406e (Done Mo)
       while (cur_update + 1 < (int)updates.size() &&
              updates[cur_update + 1].id < query.id) {
         ++cur_update;
         update(updates[cur_update].u, updates[cur_update].old_val,
                updates[cur_update].new_val, cur_l, cur_r);
       }
-      // should we update less?
       while (cur_update >= 0 && updates[cur_update].id > query.id) {
         update(updates[cur_update].u, updates[cur_update].new_val,
                updates[cur_update].old_val, cur_l, cur_r);
@@ -132,13 +136,15 @@ struct TreeMoAlgorithmWithUpdates {
   }
   int n;
   vector<vector<int>> g;
-  vector<int> parent;
-  vector<int> depth;
-  vector<int> sz;
+  vector<int> parent, depth, sz, nxt,
+               in, out, flattened;
   int dfs_number;
+<<<<<<< HEAD
   vector<int> nxt;
   vector<int> in, out;
   vector<int> flattened;
+=======
+>>>>>>> f20406e (Done Mo)
   void dfs_sz(int u, int fu) {
     parent[u] = fu;
     sz[u] = 1;
@@ -164,7 +170,10 @@ struct TreeMoAlgorithmWithUpdates {
   }
 };
 // }}}
+<<<<<<< HEAD
 // Example query type
+=======
+>>>>>>> f20406e (Done Mo)
 enum QueryType { GET = 0, UPDATE = 1 };
 struct Query {
   int u, v;             // For get: path u -> v
