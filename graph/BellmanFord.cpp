@@ -1,12 +1,8 @@
 const long long INF = 2000000000000000000LL;
-struct Edge {
-    int u, v;
-    long long w; 
-};
+struct Edge { int u, v; long long w;  };
 void bellmanFord(int n, int S, vector<Edge> &e, vector<long long> &D, vector<int> &trace) {
     // n: so dinh, S: dinh bat dau, D: do dai duong di ngan nhat, INF neu co duong di, -INF neu co duong di am vo cuc
-    D.resize(n, INF);
-    trace.resize(n, -1);
+    D.resize(n, INF); trace.resize(n, -1);
     D[S] = 0;
     for(int T = 1; T < n; T++) {
         for (auto E : e) {
@@ -15,10 +11,7 @@ void bellmanFord(int n, int S, vector<Edge> &e, vector<long long> &D, vector<int
             if (D[u] != INF && D[v] > D[u] + w) {
                 D[v] = D[u] + w;
                 trace[v] = u;
-            }
-        }
-    }
-}
+            }}}}
 vector<int> trace_path(vector<int> &trace, int S, int u) {
     if (u != S && trace[u] == -1) return vector<int>(0); 
     vector<int> path;
@@ -47,5 +40,4 @@ bool findNegativeCycle(int n, vector<long long> &D, vector<int> &trace, vector<i
     negCycle = vector<int>(1, u);
     for (int v = trace[u]; v != u; v = trace[u]) negCycle.push_back(v); // truy vet mot dong
     reverse(negCycle.begin(), negCycle.end());
-    return true;
-}
+    return true;}

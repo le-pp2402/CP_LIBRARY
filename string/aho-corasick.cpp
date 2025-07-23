@@ -10,13 +10,12 @@ struct node {
 struct AC {
   vector<node> g{node()};
   void add(string &s, int out) {
-    int id = 0;
-    for (char &c : s) {
-      if (g[id].next[(int)c] == -1) {
-        g[id].next[(int)c] = g.size();
-        g.push_back(node());
-      } id = g[id].next[(int)c];
-    } g[id].output.push_back(out);
+int id = 0; for (char &c : s) {
+  if (g[id].next[(int)c] == -1) {
+    g[id].next[(int)c] = g.size();
+    g.push_back(node());
+  } id = g[id].next[(int)c];
+} g[id].output.push_back(out);
   }
   void build() {
     queue<int> qu; qu.push(0);

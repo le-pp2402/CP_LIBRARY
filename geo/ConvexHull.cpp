@@ -18,6 +18,4 @@ vector<Point> convexHull(vector<Point> p, int n) {
         while (hull.size() >= 2 && ccw(hull[hull.size() - 2], hull.back(), p[i])) hull.pop_back();
         hull.push_back(p[i]);
     }
-    if (n > 1) hull.pop_back();
-    return hull;
-}
+    if (n > 1) hull.pop_back(); return hull; }
